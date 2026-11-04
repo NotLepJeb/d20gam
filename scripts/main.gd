@@ -386,15 +386,24 @@ func _finish_player_turn() -> void:
 	_refresh_table()
 	round_over = true
 	var dealer_value := _hand_value(dealer_hand)
+	var dealer_natural := dealer_hand.size() == 2 and dealer_value == 21
 	var results: Array[String] = []
 	for i in range(player_hands.size()):
 		var value := _hand_value(player_hands[i])
 		if value > 21:
 			results.append("H%d bust" % (i + 1))
+		elif natural_blackjack and i == 0:
+			if dealer_natural:
+				bankroll += hand_bets[i]
+				results.append("H%d push (both blackjack)" % (i + 1))
+			else:
+				var blackjack_payout := int(hand_bets[i] * 2.5)
+				bankroll += blackjack_payout
+				results.append("H%d blackjack +$%d" % [i + 1, blackjack_payout - hand_bets[i]])
+		elif dealer_natural:
+			results.append("H%d loses to dealer blackjack" % (i + 1))
 		elif dealer_value > 21 or value > dealer_value:
 			var payout := hand_bets[i] * 2
-			if natural_blackjack and i == 0:
-				payout = int(hand_bets[i] * 2.5)
 			bankroll += payout
 			results.append("H%d wins +$%d" % [i + 1, payout - hand_bets[i]])
 		elif value == dealer_value:
