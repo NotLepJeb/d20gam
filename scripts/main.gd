@@ -182,6 +182,7 @@ func _start_round() -> void:
 	_deal_to(dealer_hand, true)
 	_deal_to(player_hands[0], false)
 	_refresh_table()
+	_update_controls()
 	natural_blackjack = _hand_value(player_hands[0]) == 21
 	if natural_blackjack:
 		_finish_player_turn()
