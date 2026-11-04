@@ -1,20 +1,23 @@
-# D20Gam
+# D20Gam — Blackjack
 
-A Godot 4 game project.
-
-## Requirements
-- Godot Engine 4.x
+A small single-player blackjack game built with Godot 4. It uses virtual play chips only; there are no real-money wagers or payments.
 
 ## Run
-1. Clone this repository.
-2. Open the repository folder in Godot using **Import**.
-3. Open `project.godot` and press **F6** to run the current scene, or **F5** once the main scene is in place.
+1. Install Godot Engine 4.x.
+2. Clone or download this repository.
+3. In Godot, choose **Import** and select this folder's `project.godot`.
+4. Press **F6** to run the main scene (or **F5** to run the project).
+
+## How to play
+- Start with 1,000 virtual chips.
+- Adjust your wager with **− BET** and **+ BET**.
+- Press **DEAL**, then choose **HIT** or **STAND**.
+- Get as close to 21 as possible without going over.
+- Dealer stands on 17. Blackjack pays 3:2; a tie returns the wager.
 
 ## Project layout
-- `scenes/` — game scenes, entities, and UI
-- `scripts/` — GDScript logic
+- `scenes/main.tscn` — game entry scene
+- `scripts/main.gd` — blackjack rules and dynamically-built table UI
 - `assets/` — sprites, audio, and fonts
 - `resources/` — reusable Godot resources
-- `addons/` — third-party or custom editor plugins
-
-Keep reusable gameplay logic in scripts and reusable data in Resources. Prefer small scenes with clearly defined responsibilities.
+- `addons/` — optional editor plugins
