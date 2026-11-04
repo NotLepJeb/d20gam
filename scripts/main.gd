@@ -15,6 +15,7 @@ var active_hand := 0
 var bankroll := STARTING_BANKROLL
 var round_over := true
 var dealer_hidden := true
+var natural_blackjack := false
 var status_text := "Place your bet and deal."
 var status_label: Label
 var bankroll_label: Label
@@ -164,6 +165,8 @@ func _start_round() -> void:
 		return
 	bet_amount = mini(bet_amount, bankroll)
 	hand_bets = [bet_amount]
+	bankroll -= bet_amount
+	natural_blackjack = false
 	player_hands = [[]]
 	dealer_hand = []
 	active_hand = 0
@@ -179,7 +182,8 @@ func _start_round() -> void:
 	_deal_to(dealer_hand, true)
 	_deal_to(player_hands[0], false)
 	_refresh_table()
-	if _hand_value(player_hands[0]) == 21:
+	natural_blackjack = _hand_value(player_hands[0]) == 21
+	if natural_blackjack:
 		_finish_player_turn()
 
 func _build_deck() -> void:
@@ -242,7 +246,7 @@ func _create_card(card: Dictionary, face_down: bool) -> Control:
 		fallback.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		fallback.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		fallback.add_theme_color_override("font_color", Color("#222222"))
-		fallback.add_theme_color_override("font_size", 22)
+		fallback.add_theme_font_size_override("font_size", 22)
 		var panel := PanelContainer.new()
 		panel.custom_minimum_size = CARD_SIZE
 		panel.add_child(fallback)
@@ -388,7 +392,7 @@ func _finish_player_turn() -> void:
 			results.append("H%d bust" % (i + 1))
 		elif dealer_value > 21 or value > dealer_value:
 			var payout := hand_bets[i] * 2
-			if player_hands[i].size() == 2 and value == 21:
+			if natural_blackjack and i == 0:
 				payout = int(hand_bets[i] * 2.5)
 			bankroll += payout
 			results.append("H%d wins +$%d" % [i + 1, payout - hand_bets[i]])
