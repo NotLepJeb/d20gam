@@ -1,23 +1,30 @@
-# D20Gam — Blackjack
+# D20Gam — Card Gallery
 
-A small single-player blackjack game built with Godot 4. It uses virtual play chips only; there are no real-money wagers or payments.
+This Godot 4 project displays the complete supplied playing-card artwork as a scrollable gallery. The previous blackjack game has been replaced by a card collection viewer.
 
 ## Run
 1. Install Godot Engine 4.x.
 2. Clone or download this repository.
-3. In Godot, choose **Import** and select this folder's `project.godot`.
-4. Press **F6** to run the main scene (or **F5** to run the project).
+3. Copy the supplied card PNGs into `assets/sprites/cards/`, keeping the folders and filenames unchanged.
+4. Copy the supplied TTF files into `assets/fonts/`.
+5. Import `project.godot` in Godot and press **F5**.
 
-## How to play
-- Start with 1,000 virtual chips.
-- Adjust your wager with **− BET** and **+ BET**.
-- Press **DEAL**, then choose **HIT** or **STAND**.
-- Get as close to 21 as possible without going over.
-- Dealer stands on 17. Blackjack pays 3:2; a tie returns the wager.
+## Asset layout
+- `assets/sprites/cards/Backs/` — 9 card backs
+- `assets/sprites/cards/Clubs/` — 13 cards
+- `assets/sprites/cards/Diamonds/` — 13 cards
+- `assets/sprites/cards/Hearts/` — 13 cards
+- `assets/sprites/cards/Spades/` — 13 cards
+- `assets/sprites/cards/Joker/` — 2 jokers
+- `assets/fonts/` — supplied pixel fonts
+
+The gallery is grouped by card type, uses a seven-column grid, and shows placeholders for any missing images. The supplied artwork contains 63 PNG files and the font archive contains 19 TTF files.
 
 ## Project layout
-- `scenes/main.tscn` — game entry scene
-- `scripts/main.gd` — blackjack rules and dynamically-built table UI
-- `assets/` — sprites, audio, and fonts
+- `scenes/main.tscn` — main gallery scene
+- `scripts/main.gd` — dynamic card gallery
+- `assets/sprites/cards/` — card artwork
+- `assets/fonts/` — fonts
+- `assets/audio/` — audio assets
 - `resources/` — reusable Godot resources
 - `addons/` — optional editor plugins
